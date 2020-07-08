@@ -1,0 +1,151 @@
+#include<Servo.h>
+Servo myservo;
+const int servopin = 5;
+const int motorpin = 3;
+const int pota = A0;
+const int potb = A1;
+const int potc = A2;
+const int potd = A3;
+int potm;
+int potn;
+int poto;
+int potp;
+int potm1;
+int potn1;
+int poto1;
+int potp1;
+int outa;
+int outb;
+int outc;
+int outd;
+int outa1;
+int outb1;
+int outc1;
+int outd1;
+int rot=0;
+void setup()
+{
+  Serial.begin(9600);
+  myservo.attach(servopin);
+  pinMode(3, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+  pinMode(A3, INPUT);
+}
+
+void loop()
+{
+  digitalWrite(motorpin,LOW);
+  myservo.write(0);
+  digitalWrite(13,HIGH);
+  digitalWrite(12,HIGH);
+  digitalWrite(11,HIGH);
+  digitalWrite(10,HIGH);
+  delay(100);
+  potm = analogRead(pota);
+  potn = analogRead(potb);
+  poto = analogRead(potc);
+  potp = analogRead(potd);
+  outa= map(potm,0,1023,0,100);
+  outb= map(potn,0,1023,0,100);
+  outc= map(poto,0,1023,0,100);
+  outd= map(potp,0,1023,0,100);
+  digitalWrite(13,LOW);
+  digitalWrite(12,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(10,LOW);
+  delay(100);
+  digitalWrite(8,HIGH);
+  digitalWrite(7,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(9,HIGH);
+  delay(100);
+  potm1 = analogRead(pota);
+  potn1 = analogRead(potb);
+  poto1 = analogRead(potc);
+  potp1 = analogRead(potd);
+  outa1= map(potm1,0,1023,0,100);
+  outb1= map(potn1,0,1023,0,100);
+  outc1= map(poto1,0,1023,0,100);
+  outd1= map(potp1,0,1023,0,100);
+  digitalWrite(8,LOW);
+  digitalWrite(7,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(9,LOW);
+  delay(100);
+  if(outa<=80 && outa1<=40)
+  {
+    Serial.print("reading of sensors of plant A is ");
+    Serial.print(outa);
+    Serial.print("and ");
+    Serial.print(outa1);
+    Serial.print(" \n");
+    for(rot=0;rot<=0;rot++)
+    {
+      myservo.write(rot);
+    }
+    delay(1000);
+    digitalWrite(motorpin,HIGH);
+    delay(2000);
+    digitalWrite(motorpin,LOW);
+  }
+  if(outb<=85 && outb1<=40)
+  {
+    Serial.print("reading of sensors of plant B is ");
+    Serial.print(outb);
+    Serial.print("and ");
+    Serial.print(outb1);
+    Serial.print(" \n");
+    for(rot=0;rot<=45;rot++)
+    {
+      myservo.write(rot);
+    }
+    delay(2000);
+    digitalWrite(motorpin,HIGH);
+    delay(2000);
+    digitalWrite(motorpin,LOW);
+  }
+  if(outc<=85 && outc1<=40)
+  {
+    Serial.print("reading of sensors of plant C is ");
+    Serial.print(outc);
+    Serial.print("and ");
+    Serial.print(outc1);
+    Serial.print(" \n");
+    for(rot=0;rot<=135;rot++)
+    {
+      myservo.write(rot);
+    }
+    delay(2000);
+    digitalWrite(motorpin,HIGH);
+    delay(2000);
+    digitalWrite(motorpin,LOW);
+  }
+  if(outd<=85 && outd1<=40)
+  {
+    Serial.print("reading of sensors of plant D is ");
+    Serial.print(outd);
+    Serial.print("and ");
+    Serial.print(outd1);
+    Serial.print(" \n");
+    for(rot=0;rot<=180;rot++)
+    {
+      myservo.write(rot);
+    }
+    delay(2000);
+    digitalWrite(motorpin,HIGH);
+    delay(2000);
+    digitalWrite(motorpin,LOW);
+  }
+  delay(5000);
+}
